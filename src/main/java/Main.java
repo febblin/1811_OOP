@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Main {
+
     public static void main(String[] args) {
         ArrayList<Base> list = new ArrayList<>();
         list.add(new Monk());
@@ -11,11 +12,13 @@ public class Main {
         list.add(new Wizard());
         list.add(new Xbowman());
 
-        Monk monk00 = new Monk();
-
         list.forEach(System.out::println); // list.forEach(n -> System.out.println(n));
-        monk00.getPlayerID();
-    }
+        System.out.println("\n----\n");
 
+        int teamCount = 50;
+        ArrayList<Base> team = Team.teamMaker(teamCount);
+        Team.consoleFilter(new Sniper(), team);
+
+    }
 
 }

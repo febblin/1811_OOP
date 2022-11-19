@@ -3,27 +3,21 @@ import java.util.Arrays;
 public abstract class Base {
     private int attack;
     private int protection;
-    private int shoot;
     private int[] damage;
     private double health;
     private int speed;
-    private boolean delivery;
-    private boolean magic;
-    private String name;
     private static int idCounter;
     private int playerID;
+    private String name;
 
-    public Base(int attack, int protection, int shoot, int[] damage, double health, int speed, boolean delivery, boolean magic, String name) {
+    public Base(int attack, int protection, int[] damage, double health, int speed, String name) {
         this.attack = attack;
         this.protection = protection;
-        this.shoot = shoot;
         this.damage = damage;
         this.health = health;
         this.speed = speed;
-        this.delivery = delivery;
-        this.magic = magic;
-        this.name = name;
-        playerID = idCounter++;
+        this.playerID = idCounter++;
+        this.name = name + playerID;
     }
 
     public int getPlayerID() {
@@ -38,10 +32,6 @@ public abstract class Base {
         return protection;
     }
 
-    public int getShoot() {
-        return shoot;
-    }
-
     public int[] getDamage() {
         return damage;
     }
@@ -52,14 +42,6 @@ public abstract class Base {
 
     public int getSpeed() {
         return speed;
-    }
-
-    public boolean isDelivery() {
-        return delivery;
-    }
-
-    public boolean isMagic() {
-        return magic;
     }
 
     public String getName() {
@@ -76,11 +58,6 @@ public abstract class Base {
             this.protection = protection;
     }
 
-    public void setShoot(int shoot) {
-        if (shoot >= 0)
-            this.shoot = shoot;
-    }
-
     public void setDamage(int[] damage) {
         this.damage = damage;
     }
@@ -95,28 +72,24 @@ public abstract class Base {
             this.speed = speed;
     }
 
-    public void setDelivery(boolean delivery) {
-        this.delivery = delivery;
-    }
-
-    public void setMagic(boolean magic) {
-        this.magic = magic;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "attack=" + attack +
+        return "name=" + name +
+                ", attack=" + attack +
                 ", protection=" + protection +
-                ", shoot=" + shoot +
                 ", damage=" + Arrays.toString(damage) +
                 ", health=" + health +
-                ", speed=" + speed +
-                ", delivery=" + delivery +
-                ", magic=" + magic;
+                ", speed=" + speed;
+    }
+
+    public boolean equalsClass(Base hero) {
+        if (this.getClass() == hero.getClass()) return true;
+        else return false;
     }
 
 }
+
