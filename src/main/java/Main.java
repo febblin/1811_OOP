@@ -15,9 +15,11 @@ public class Main {
         list.forEach(System.out::println); // list.forEach(n -> System.out.println(n));
         System.out.println("\n----\n");
 
-        int teamCount = 50;
+        int teamCount = 10;
         ArrayList<Base> team = Team.teamMaker(teamCount);
         Team.consoleFilter(new Sniper(), team);
+
+
 
     }
 

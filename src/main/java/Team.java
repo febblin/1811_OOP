@@ -7,27 +7,13 @@ public class Team {
         ArrayList<Base> team = new ArrayList<>();
         for (int i = 0; i < teamCount; i++) {
             switch (rand.nextInt(7)) {
-                case 0:
-                    team.add(new Monk());
-                    break;
-                case 1:
-                    team.add(new Peasant());
-                    break;
-                case 2:
-                    team.add(new Robber());
-                    break;
-                case 3:
-                    team.add(new Sniper());
-                    break;
-                case 4:
-                    team.add(new Spearman());
-                    break;
-                case 5:
-                    team.add(new Wizard());
-                    break;
-                case 6:
-                    team.add(new Xbowman());
-                    break;
+                case 0 -> team.add(new Monk());
+                case 1 -> team.add(new Peasant());
+                case 2 -> team.add(new Robber());
+                case 3 -> team.add(new Sniper());
+                case 4 -> team.add(new Spearman());
+                case 5 -> team.add(new Wizard());
+                case 6 -> team.add(new Xbowman());
             }
         }
         return team;
