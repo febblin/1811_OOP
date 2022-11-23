@@ -22,7 +22,7 @@ public class Team {
     public static void consoleFilter(Base hero, ArrayList<Base> team) {
         for (Base n : team) {
             if (n.equalsClass(hero)) {
-                System.out.println(n);
+                System.out.println(n.getInfo());
             }
         }
     }

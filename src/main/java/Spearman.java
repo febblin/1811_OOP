@@ -6,4 +6,5 @@ public class Spearman extends Base {
     public Spearman(int attack, int protection, int[] damage, double health, int speed, String name) {
         super(attack, protection, damage, health, speed, name);
     }
+
 }

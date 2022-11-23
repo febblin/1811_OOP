@@ -21,8 +21,9 @@ public class Peasant extends Base {
     }
 
     @Override
-    public String toString() {
-        return super.toString() +
+    public String getInfo() {
+        return super.getInfo() +
                 ", delivery=" + delivery;
     }
+
 }

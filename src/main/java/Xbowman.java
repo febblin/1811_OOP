@@ -17,9 +17,10 @@ public class Xbowman extends Base {
         this.shoot = shoot;
     }
 
+
     @Override
-    public String toString() {
-        return super.toString() +
+    public String getInfo() {
+        return super.getInfo() +
                 ", shoot=" + shoot;
     }
 

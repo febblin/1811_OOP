@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+
 public class Monk extends Base {
+
     boolean magic;
     public Monk() {
         super(12, 7, new int[]{-4,-4}, 30, 5, "Monk");
@@ -19,8 +22,9 @@ public class Monk extends Base {
     }
 
     @Override
-    public String toString() {
-        return super.toString() +
+    public String getInfo() {
+        return super.getInfo() +
                 ", magic=" + magic;
     }
+
 }

@@ -1,10 +1,15 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-public abstract class Base {
+public abstract class Base implements BaseInterface {
     private int attack;
     private int protection;
     private int[] damage;
     private double health;
+
+    private double maxHealth;
     private int speed;
     private static int idCounter;
     private int playerID;
@@ -14,7 +19,8 @@ public abstract class Base {
         this.attack = attack;
         this.protection = protection;
         this.damage = damage;
-        this.health = health;
+        this.maxHealth = health;
+        this.health = maxHealth;
         this.speed = speed;
         this.playerID = idCounter++;
         this.name = name + playerID;
@@ -40,6 +46,10 @@ public abstract class Base {
         return health;
     }
 
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+
     public int getSpeed() {
         return speed;
     }
@@ -58,8 +68,8 @@ public abstract class Base {
             this.protection = protection;
     }
 
-    public void setDamage(int[] damage) {
-        this.damage = damage;
+    public void damage(int damage) {
+        this.health = health - damage;
     }
 
     public void setHealth(double health) {
@@ -77,7 +87,7 @@ public abstract class Base {
     }
 
     @Override
-    public String toString() {
+    public String getInfo() {
         return "name=" + name +
                 ", attack=" + attack +
                 ", protection=" + protection +
@@ -91,7 +101,34 @@ public abstract class Base {
         else return false;
     }
 
-    /*  т€желоват в €ве и к нативной библиотеке обращаетс€ дополнительно, это не всегда оптимально. ¬ вашем случае удобней использовать поле name. Ќо вобще всЄ здорово!)*/
+    @Override
+    public void step(ArrayList<Base> party) {
+        Random r = new Random();
+        int value = r.nextInt(this.damage[0], this.damage[1]);
 
+        List<String> healers = List.of("Monk", "Wizard");
+        if (healers.contains(this.getClass().getSimpleName())) {
+            double mostDamaged = party.get(0).health;
+            int mostDamagedInd = 0;
+            for (int i = 1; i < party.size(); i++) {
+                if (party.get(i).health < mostDamaged) {
+                    mostDamaged = party.get(i).health;
+                    mostDamagedInd = i;
+                }
+            }
+            party.get(mostDamagedInd).damage(value);
+        }
+        else {
+            double minDamaged = party.get(0).health;
+            int minDamagedInd = 0;
+            for (int i = 1; i < party.size(); i++) {
+                if (party.get(i).health > minDamaged) {
+                    minDamaged = party.get(i).health;
+                    minDamagedInd = i;
+                }
+            }
+            party.get(minDamagedInd).damage(value);
+        }
+    }
 }
 
