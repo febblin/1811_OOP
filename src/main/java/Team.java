@@ -2,25 +2,25 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Team {
-    public static ArrayList<Base> teamMaker(int teamCount) {
-        Random rand = new Random();
-        ArrayList<Base> team = new ArrayList<>();
-        for (int i = 0; i < teamCount; i++) {
-            switch (rand.nextInt(7)) {
-                case 0 -> team.add(new Monk());
-                case 1 -> team.add(new Peasant());
-                case 2 -> team.add(new Robber());
-                case 3 -> team.add(new Sniper());
-                case 4 -> team.add(new Spearman());
-                case 5 -> team.add(new Wizard());
-                case 6 -> team.add(new Xbowman());
+    public static ArrayList<BaseHero> make(int teamCount, String [] request) {
+        ArrayList<BaseHero> team = new ArrayList<>();
+        Random r = new Random();
+        for (int i = 0; i <= teamCount; i++) {
+            switch (request[r.nextInt(request.length)]) {
+                case "Monk" -> team.add(new Monk(team));
+                case "Peasant" -> team.add(new Peasant(team));
+                case "Robber" -> team.add(new Robber(team));
+                case "Sniper" -> team.add(new Sniper(team));
+                case "Spearman" -> team.add(new Spearman(team));
+                case "Warlock" -> team.add(new Warlock(team));
+                case "Xbowman" -> team.add(new Xbowman(team));
             }
         }
         return team;
     }
 
-    public static void consoleFilter(Base hero, ArrayList<Base> team) {
-        for (Base n : team) {
+    public static void consoleFilter(BaseHero hero, ArrayList<BaseHero> team) {
+        for (BaseHero n : team) {
             if (n.equalsClass(hero)) {
                 System.out.println(n.getInfo());
             }
