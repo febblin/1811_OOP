@@ -1,7 +1,7 @@
+package chars;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 public abstract class BaseHero implements BaseInterface {
     private int attack;
@@ -58,12 +58,15 @@ public abstract class BaseHero implements BaseInterface {
         return myParty;
     }
 
+    @Override
+    public void step() {}
+
 //    @Override
-//    public void step(ArrayList<BaseHero> party) {
+//    public void step(ArrayList<chars.BaseHero> party) {
 //        Random r = new Random();
 //        int value = r.nextInt(this.damage[0], this.damage[1]);
 //
-//        List<String> healers = List.of("Monk", "Warlock");
+//        List<String> healers = List.of("chars.Monk", "chars.Warlock");
 //        if (healers.contains(this.getClass().getSimpleName())) {
 //            double mostDamaged = party.get(0).health;
 //            int mostDamagedInd = 0;

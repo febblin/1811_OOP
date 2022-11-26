@@ -1,9 +1,11 @@
+package chars;
+
 import java.util.ArrayList;
 
 public class Monk extends BaseHero {
 
     public Monk(ArrayList<BaseHero> myParty) {
-        super(12, 7, new int[]{-4,-4}, 30, 5, "Monk", myParty);
+        super(12, 7, new int[]{-4,-4}, 30, 5, "chars.Monk", myParty);
     }
 
     public Monk(int attack, int protection, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty) {

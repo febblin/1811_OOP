@@ -1,3 +1,5 @@
+package chars;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,13 +9,13 @@ public class Team {
         Random r = new Random();
         for (int i = 0; i <= teamCount; i++) {
             switch (request[r.nextInt(request.length)]) {
-                case "Monk" -> team.add(new Monk(team));
-                case "Peasant" -> team.add(new Peasant(team));
-                case "Robber" -> team.add(new Robber(team));
-                case "Sniper" -> team.add(new Sniper(team));
-                case "Spearman" -> team.add(new Spearman(team));
-                case "Warlock" -> team.add(new Warlock(team));
-                case "Xbowman" -> team.add(new Xbowman(team));
+                case "chars.Monk" -> team.add(new Monk(team));
+                case "chars.Peasant" -> team.add(new Peasant(team));
+                case "chars.Robber" -> team.add(new Robber(team));
+                case "chars.Sniper" -> team.add(new Sniper(team));
+                case "chars.Spearman" -> team.add(new Spearman(team));
+                case "chars.Warlock" -> team.add(new Warlock(team));
+                case "chars.Xbowman" -> team.add(new Xbowman(team));
             }
         }
         return team;
