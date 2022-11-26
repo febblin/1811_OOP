@@ -11,8 +11,6 @@ public abstract class Base implements BaseInterface {
 
     private double maxHealth;
     private int speed;
-    private static int idCounter;
-    private int playerID;
     private String name;
 
     public Base(int attack, int protection, int[] damage, double health, int speed, String name) {
@@ -22,68 +20,11 @@ public abstract class Base implements BaseInterface {
         this.maxHealth = health;
         this.health = maxHealth;
         this.speed = speed;
-        this.playerID = idCounter++;
-        this.name = name + playerID;
-    }
-
-    public int getPlayerID() {
-        return playerID;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getProtection() {
-        return protection;
-    }
-
-    public int[] getDamage() {
-        return damage;
-    }
-
-    public double getHealth() {
-        return health;
-    }
-
-    public double getMaxHealth() {
-        return maxHealth;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setAttack(int attack) {
-        if (attack >= 0)
-            this.attack = attack;
-    }
-
-    public void setProtection(int protection) {
-        if (protection >=0)
-            this.protection = protection;
+        this.name = name;
     }
 
     public void damage(int damage) {
         this.health = health - damage;
-    }
-
-    public void setHealth(double health) {
-        if (health >=0)
-            this.health = health;
-    }
-
-    public void setSpeed(int speed) {
-        if (speed >=0)
-            this.speed = speed;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -97,8 +38,7 @@ public abstract class Base implements BaseInterface {
     }
 
     public boolean equalsClass(Base hero) {
-        if (this.getClass() == hero.getClass()) return true;
-        else return false;
+        return this.getClass() == hero.getClass();
     }
 
     @Override
