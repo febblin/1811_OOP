@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Monk extends BaseHero {
 
-    public Monk(ArrayList<BaseHero> myParty) {
-        super(12, 7, new int[]{-4,-4}, 30, 5, "chars.Monk", myParty);
+    public Monk(ArrayList<BaseHero> myParty, int x, int y) {
+        super(12, 7, new int[]{-4,-4}, 30, 5, "Monk", myParty, x, y);
     }
 
-    public Monk(int attack, int protection, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty) {
-        super(attack, protection, damage, health, speed, name, myParty);
+    public Monk(int attack, int protection, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
+        super(attack, protection, damage, health, speed, name, myParty, x, y);
     }
 
     @Override

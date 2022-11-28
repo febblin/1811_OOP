@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public abstract class BaseHero implements BaseInterface {
     private int attack;
-    private int protection;
+    private int defense;
     private int[] damage;
     private double health;
 
@@ -14,19 +14,35 @@ public abstract class BaseHero implements BaseInterface {
     private String name;
     protected ArrayList<BaseHero> myParty;
 
+    private int [] position;
+
     public int[] getDamage() {
         return damage;
     }
 
-    public BaseHero(int attack, int protection, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty) {
+//    public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
+//        this.attack = attack;
+//        this.defense = defense;
+//        this.damage = damage;
+//        this.maxHealth = health;
+//        this.health = maxHealth;
+//        this.speed = speed;
+//        this.name = name;
+//        this.myParty = myParty;
+//        this.position[0] = x;
+//        this.position[1] = y;
+//    }
+    public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
         this.attack = attack;
-        this.protection = protection;
+        this.defense = defense;
         this.damage = damage;
         this.maxHealth = health;
         this.health = maxHealth;
         this.speed = speed;
         this.name = name;
         this.myParty = myParty;
+        this.position[0] = x;
+        this.position[1] = y;
     }
 
     public void damage(int damage) {
@@ -37,7 +53,7 @@ public abstract class BaseHero implements BaseInterface {
     public String getInfo() {
         return "name=" + name +
                 ", attack=" + attack +
-                ", protection=" + protection +
+                ", defense=" + defense +
                 ", damage=" + Arrays.toString(damage) +
                 ", health=" + health +
                 ", speed=" + speed;
