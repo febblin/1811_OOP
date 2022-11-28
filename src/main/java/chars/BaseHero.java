@@ -8,30 +8,12 @@ public abstract class BaseHero implements BaseInterface {
     private int defense;
     private int[] damage;
     private double health;
-
     private double maxHealth;
     private int speed;
     private String name;
     protected ArrayList<BaseHero> myParty;
+    private int [] position = new int [2];
 
-    private int [] position;
-
-    public int[] getDamage() {
-        return damage;
-    }
-
-//    public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
-//        this.attack = attack;
-//        this.defense = defense;
-//        this.damage = damage;
-//        this.maxHealth = health;
-//        this.health = maxHealth;
-//        this.speed = speed;
-//        this.name = name;
-//        this.myParty = myParty;
-//        this.position[0] = x;
-//        this.position[1] = y;
-//    }
     public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
         this.attack = attack;
         this.defense = defense;
@@ -43,6 +25,18 @@ public abstract class BaseHero implements BaseInterface {
         this.myParty = myParty;
         this.position[0] = x;
         this.position[1] = y;
+    }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    public boolean isEqualPos(int[] pos) {
+        return this.position[0]==pos[0] && this.position[1]==pos[1];
+    }
+
+    public int[] getDamage() {
+        return damage;
     }
 
     public void damage(int damage) {

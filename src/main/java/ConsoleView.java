@@ -1,57 +1,58 @@
-import chars.BaseHero;
-import chars.Vector2;
 import java.util.Collections;
 
 public class ConsoleView {
-    public static int step = 0;
-    private static final String top10 = formatDiv("a") + String.join("", Collections.nCopies(9, formatDiv("-b"))) + formatDiv("-c");
-    private static final String mid10 = formatDiv("d") + String.join("", Collections.nCopies(9, formatDiv("-e"))) + formatDiv("-f");
-    private static final String bottom10 = formatDiv("g") + String.join("", Collections.nCopies(9, formatDiv("-h"))) + formatDiv("-i");
 
-    public static void view(){
-        if (step++ == 0) {
-            System.out.println(Colors.ANSI_RED+"First step!"+Colors.ANSI_RESET);
-        } else {
-            System.out.println(Colors.ANSI_RED + "Step: "+step+Colors.ANSI_RESET);
-        }
+    public static void field(int teamCount) {
+        // Верх
+        System.out.println(
+                "\u250c" + String.join("", Collections.nCopies(teamCount-1, "\u2500\u2500\u252c")) + "\u2500\u2500\u2510");
 
-        System.out.println(ConsoleView.top10);
-
-        for (int i = 1; i <= Main.GANG_SIZE-1; i++) {
-            for (int j = 1; j <= Main.GANG_SIZE; j++) {
-                System.out.print(getChar(new Vector2(i, j)));
+        // Середина
+        for (int i = 1; i < teamCount; i++) {
+            System.out.printf("\u2502%s", ConsoleView.getChar(i, 0, teamCount));
+            for (int j = 1; j < teamCount; j++) {
+                System.out.printf("\u2502%s", ConsoleView.getChar(i, j, teamCount));
             }
-            System.out.println("|");
-            System.out.println(ConsoleView.mid10);
+            System.out.printf("\u2502\n");
+
+            System.out.println(
+                    "\u251c" + String.join("", Collections.nCopies(teamCount-1, "\u2500\u2500\u253c")) + "\u2500\u2500\u2524");
         }
 
-        for (int j = 1; j <= Main.GANG_SIZE; j++) {
-            System.out.print(getChar(new Vector2(10, j)));
+        // Низ. Какое-то повторение кода в духе "распечатай строку первонажей". Хоть метод вводи, который составит и вернет строку персонажей
+        System.out.printf("\u2502%s", ConsoleView.getChar(teamCount-1, 0, teamCount));
+        for (int j = 1; j < teamCount; j++) {
+            System.out.printf("\u2502%s", ConsoleView.getChar(teamCount-1, j, teamCount));
         }
-        System.out.println("|");
-        System.out.println(ConsoleView.bottom10);
+        System.out.printf("\u2502\n", ConsoleView.getChar(teamCount-1, teamCount-1, teamCount));
+        System.out.println(
+                "\u2514" + String.join("", Collections.nCopies(teamCount-1, "\u2500\u2500\u2534")) + "\u2500\u2500\u2518");
+
     }
 
-    private static String getChar(Vector2 position){
-        String str = "| ";
-        for (int i = 0; i < Main.GANG_SIZE; i++) {
-            if (Main.darkSide.get(i).getPosition().isEqual(position)) str ="|"+AnsiColors.ANSI_GREEN+Main.darkSide.get(i).getName().toUpperCase().charAt(0)+AnsiColors.ANSI_RESET;
-            if (Main.lightSide.get(i).getPosition().isEqual(position)) str ="|"+AnsiColors.ANSI_BLUE+Main.whiteSide.get(i).getName().toUpperCase().charAt(0)+AnsiColors.ANSI_RESET;
+    private static String getChar(int x, int y, int teamCount) {
+        String str = "  ";
+        for (int i = 0; i < teamCount; i++) {
+            if (Main.lightSide.get(i).isEqualPos(new int [] {x, y}))
+                str = Colors.ANSI_BLUE + Main.lightSide.get(i).getName().substring(0, 2)+Colors.ANSI_RESET;
+            if (Main.darkSide.get(i).isEqualPos(new int [] {x, y}))
+                str = Colors.ANSI_GREEN + Main.darkSide.get(i).getName().substring(0, 2)+Colors.ANSI_RESET;
         }
         return str;
     }
-    private static String formatDiv(String str){
-        return str.replace('a', '\u250c')
-                .replace('b', '\u252c')
-                .replace('c', '\u2510')
-                .replace('d', '\u251c')
-                .replace('e', '\u253c')
-                .replace('f', '\u2524')
-                .replace('g', '\u2514')
-                .replace('h', '\u2534')
-                .replace('i', '\u2518')
-                .replace('-', '\u2500')
-                .replace("s", "...")
-                .replace("o", "___");
-    }
 }
+
+/*Шпаргалка по значению кодовых точек
+ * '\u250c' - верхний левый угол
+ * '\u252c' - пересечение верхней горизонтальной границы и внутренней вертикальной
+ * '\u2510' - верхний правый угол
+ * '\u251c' - пересечение внешней границы слева и горизонтальной внутренней
+ * '\u253c' - пересечение внутренней вертикальной и горизонтальной границ ячейки
+ * '\u2524' - пересечение внешней границы справа и горизонтальной внутренней
+ * '\u2514' - левый нижний угол
+ * '\u2534' - пересечение нижней горизонтальной границы и внутренней вертикальной
+ * '\u2518' - правый нижний угол
+ * '\u2500' - нижняя граница
+ * '\u2574' - верхняя граница
+ * "___"
+ * */
