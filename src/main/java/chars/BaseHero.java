@@ -12,7 +12,7 @@ public abstract class BaseHero implements BaseInterface {
     private int speed;
     private String name;
     protected ArrayList<BaseHero> myParty;
-    private int [] position = new int [2];
+    private Coordinates position; //само поле приватное, но в объекте position поля и методы публичные. Насколько это хорошо с точки зрения инкапсуляции и безопасности?
 
     protected String status;
 
@@ -25,17 +25,17 @@ public abstract class BaseHero implements BaseInterface {
         this.speed = speed;
         this.name = name;
         this.myParty = myParty;
-        this.position[0] = x;
-        this.position[1] = y;
+        this.position = new Coordinates(x, y);
         this.status = "stand";
     }
+    /* Шпаргалка по имеющимся статусам
+    * stand - для всех. Жив и готов сражаться. По сути аналогичен статусу alive
+    * used - для крестьян, что они свою стрелу подали. Или для стрелков, что у них боеприпас закончился, а здоровье ещё нет
+    * dead - умер. Здоровье = или меньше 0
+    * */
 
-    public int[] getPosition() {
+    protected Coordinates getPosition() {
         return position;
-    }
-
-    public boolean isEqualPos(int[] pos) {
-        return this.position[0]==pos[0] && this.position[1]==pos[1];
     }
 
     public int[] getDamage() {
@@ -90,10 +90,6 @@ public abstract class BaseHero implements BaseInterface {
 
     @Override
     public void step(ArrayList<BaseHero> party) {}
-
-    public double distance(BaseHero h) {
-        return Math.sqrt(((h.getPosition()[0] - this.position[0])^2 + (h.getPosition()[1] - this.position[1])^2));
-    }
 
     protected int damageValue (BaseHero h) {
         int flag = this.getAttack() - h.getDefense();
