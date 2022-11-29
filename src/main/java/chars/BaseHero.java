@@ -12,8 +12,7 @@ public abstract class BaseHero implements BaseInterface {
     private int speed;
     private String name;
     protected ArrayList<BaseHero> myParty;
-    private Coordinates position; //само поле приватное, но в объекте position поля и методы публичные. Насколько это хорошо с точки зрения инкапсуляции и безопасности?
-
+    private Coordinates position;
     protected String status;
 
     public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
@@ -34,7 +33,7 @@ public abstract class BaseHero implements BaseInterface {
     * dead - умер. Здоровье = или меньше 0
     * */
 
-    protected Coordinates getPosition() {
+    public Coordinates getPosition() {
         return position;
     }
 
@@ -65,7 +64,7 @@ public abstract class BaseHero implements BaseInterface {
         return name;
     }
     protected boolean equalsClass(BaseHero hero) {
-        return this.getName() == hero.getName();
+        return this.getName().equals(hero.getName());
     }
 
     public double getHealth() {

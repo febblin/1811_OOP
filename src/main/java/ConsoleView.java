@@ -1,3 +1,5 @@
+import chars.Coordinates;
+
 import java.util.Collections;
 
 public class ConsoleView {
@@ -41,7 +43,7 @@ public class ConsoleView {
             System.out.printf("\u2502%s", ConsoleView.getChar(teamCount-1, j, teamCount));
         }
 
-        System.out.printf("\u2502\n", ConsoleView.getChar(teamCount-1, teamCount-1, teamCount));
+        System.out.printf("\u2502%s", ConsoleView.getChar(teamCount-1, teamCount-1, teamCount));
         System.out.println(
                 "\u2514" + String.join("", Collections.nCopies(teamCount-1, "\u2500\u2500\u2534")) + "\u2500\u2500\u2518");
 
@@ -50,9 +52,9 @@ public class ConsoleView {
     private static String getChar(int x, int y, int teamCount) {
         String str = "  ";
         for (int i = 0; i < teamCount; i++) {
-            if (Main.lightSide.get(i).isEqualPos(new int [] {x, y}))
+            if (Main.lightSide.get(i).getPosition().isSame(new Coordinates(x, y))) //сейчас они воспринимают друг друга как внешние. Как сделать так, чтобы в одном большом пакете java все классы (в подпакете chars и просто) воспринимали друг друга как внутренние, а не внешние?
                 str = Colors.ANSI_BLUE + Main.lightSide.get(i).getName().substring(0, 2)+Colors.ANSI_RESET;
-            if (Main.darkSide.get(i).isEqualPos(new int [] {x, y}))
+            if (Main.darkSide.get(i).getPosition().isSame(new Coordinates(x, y)))
                 str = Colors.ANSI_GREEN + Main.darkSide.get(i).getName().substring(0, 2)+Colors.ANSI_RESET;
         }
         return str;

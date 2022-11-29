@@ -10,7 +10,7 @@ public class Coordinates {
         this.y = y;
     }
 
-    boolean isSame(Coordinates pos) {
+    public boolean isSame(Coordinates pos) {
         return this.x == pos.x && this.y == pos.y;
     }
 
