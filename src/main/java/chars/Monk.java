@@ -13,7 +13,7 @@ public class Monk extends BaseHero {
     }
 
     @Override
-    public void step() {
+    public void step(ArrayList<BaseHero> party) {
         double mostDamaged = this.getMyParty().get(0).getHealth();
             int mostDamagedInd = 0;
             for (int i = 1; i < this.getMyParty().size(); i++) {

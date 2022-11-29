@@ -29,8 +29,30 @@ public class Xbowman extends BaseHero {
     }
 
     @Override
-    public void step() {
-
+    public void step(ArrayList<BaseHero> party) {
+        for (BaseHero h: this.getMyParty()) {
+            if (h.getName().equals("Peasant") && h.status.equals("stand")) {
+                this.shoot++;
+                h.status = "used";
+                break;
+            }
+        }
+        if (this.shoot<1) return;
+        double nearest = this.distance(party.get(0)); //математика не относится к персонажам. Все, что связано с координатами выноси в отдельный класс и будет более читаебльный код
+        int nearestInd = 0;
+        for (int i = 1; i < party.size(); i++) {
+            if (this.distance(party.get(i)) < nearest && party.get(i).status.equals("alive")) {
+                nearest = this.distance(party.get(i));
+                nearestInd = i;
+            }
+        party.get(nearestInd).damage(nearest < this.getSpeed() ?
+                super.damageValue(party.get(nearestInd)) :
+                (super.damageValue(party.get(nearestInd))/2));
+        this.shoot--;
+        //персонаж проверяет, жив ли он и если здоровье 0 и меньше - статус мертвый
+        }
     }
+
+
 
 }

@@ -8,7 +8,7 @@ public class Spearman extends BaseHero {
     }
 
     @Override
-    public void step() {
+    public void step(ArrayList<BaseHero> party) {
 
     }
 }

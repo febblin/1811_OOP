@@ -14,6 +14,8 @@ public abstract class BaseHero implements BaseInterface {
     protected ArrayList<BaseHero> myParty;
     private int [] position = new int [2];
 
+    protected String status;
+
     public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
         this.attack = attack;
         this.defense = defense;
@@ -25,6 +27,7 @@ public abstract class BaseHero implements BaseInterface {
         this.myParty = myParty;
         this.position[0] = x;
         this.position[1] = y;
+        this.status = "stand";
     }
 
     public int[] getPosition() {
@@ -39,8 +42,13 @@ public abstract class BaseHero implements BaseInterface {
         return damage;
     }
 
-    public void damage(int damage) {
+    protected void damage(int damage) {
         this.health = health - damage;
+        if (this.health <= 0) {
+            this.status = "dead";
+            this.health = 0;
+        }
+        if (this.health > this.maxHealth) this.health = this.maxHealth;
     }
 
     @Override
@@ -64,12 +72,37 @@ public abstract class BaseHero implements BaseInterface {
         return health;
     }
 
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
     public ArrayList<BaseHero> getMyParty() {
         return myParty;
     }
 
     @Override
-    public void step() {}
+    public void step(ArrayList<BaseHero> party) {}
+
+    public double distance(BaseHero h) {
+        return Math.sqrt(((h.getPosition()[0] - this.position[0])^2 + (h.getPosition()[1] - this.position[1])^2));
+    }
+
+    protected int damageValue (BaseHero h) {
+        int flag = this.getAttack() - h.getDefense();
+        int value = 0;
+        if (flag == 0) value = ((this.getDamage()[0] + this.getDamage()[1]) / 2);
+        if (flag > 0) value = this.getDamage()[1];
+        if (flag < 0) value = this.getDamage()[0];
+        return value;
+    }
 
 //    @Override
 //    public void step(ArrayList<chars.BaseHero> party) {

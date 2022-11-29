@@ -5,5 +5,5 @@ import java.util.ArrayList;
 public interface BaseInterface {
     String getInfo();
 
-    void step();
+    void step(ArrayList<BaseHero> party);
 }
