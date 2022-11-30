@@ -1,4 +1,5 @@
 import chars.BaseHero;
+import chars.Team;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -19,14 +20,18 @@ public class Turn {
     private static List <String> phase4 = List.of("Peasant");
 
 
-    private static ArrayList<BaseHero> light = Main.lightSide;
-    private static ArrayList<BaseHero> dark = Main.darkSide;
+    public static void orderBySpeed() {
 
-    private static Predicate<BaseHero> isDead = x -> x.getStatus().equals("dead");
-
-    public static void order() {
-
-        //Первая фаза
+        if (Main.step == 0) {
+            Team.sortBySpeed(Main.lightSide);
+            Team.sortBySpeed(Main.darkSide);
+            Main.lightSide.forEach(n -> n.step(Main.darkSide));
+            Main.darkSide.forEach(n -> n.step(Main.lightSide));
+        } else {
+            Main.lightSide.forEach(n -> n.step(Main.darkSide));
+            Main.darkSide.forEach(n -> n.step(Main.lightSide));
+        }
+        /*
         for (BaseHero h: Main.lightSide) {
             if (!(h.getStatus().equals("dead")) && phase1.contains(h.getName()))
                 h.step(Main.darkSide);
@@ -62,12 +67,7 @@ public class Turn {
             if (!(h.getStatus().equals("dead")) && phase4.contains(h.getName()))
                 h.step(Main.lightSide);
         }
-
-
-
-
-//        light.forEach(n -> n.step(Main.darkSide));
-//        dark.forEach(n -> n.step(Main.lightSide));
+        */
 
     }
 }

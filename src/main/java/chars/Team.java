@@ -1,6 +1,7 @@
 package chars;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Team {
@@ -27,6 +28,16 @@ public class Team {
                 System.out.println(n.getInfo());
             }
         }
+    }
+
+    public static void sortBySpeed(ArrayList<BaseHero> team) {
+        Comparator<BaseHero> comp = new Comparator<>() {
+            @Override
+            public int compare(BaseHero h1, BaseHero h2) {
+                return Integer.compare(h1.getSpeed(), h2.getSpeed());
+            }
+        };
+        team.sort(comp.reversed());
     }
 
 }
