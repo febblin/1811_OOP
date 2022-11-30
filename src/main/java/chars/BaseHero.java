@@ -13,7 +13,7 @@ public abstract class BaseHero implements BaseInterface {
     private String name;
     protected ArrayList<BaseHero> myParty;
     private Coordinates position;
-    protected String status;
+    protected String status; //проще будет изменить потом везде прямое обращение на геттер
 
     public BaseHero(int attack, int defense, int[] damage, double health, int speed, String name, ArrayList<BaseHero> myParty, int x, int y) {
         this.attack = attack;
@@ -32,6 +32,10 @@ public abstract class BaseHero implements BaseInterface {
     * used - для крестьян, что они свою стрелу подали. Или для стрелков, что у них боеприпас закончился, а здоровье ещё нет
     * dead - умер. Здоровье = или меньше 0
     * */
+
+    public String getStatus() {
+        return status;
+    }
 
     public Coordinates getPosition() {
         return position;

@@ -30,20 +30,24 @@ public class ConsoleView {
         System.out.println("Press ENTER to continue. Press Q to exit");
     }
 
+    private static StringBuilder charTable = new StringBuilder();
     private static String getChar(int x, int y, int teamCount) {
         String str = "  ";
         for (int i = 0; i < teamCount; i++) {
-            if (Main.lightSide.get(i).getPosition().isSame(new Coordinates(x, y))) //сейчас они воспринимают друг друга как внешние. Как сделать так, чтобы в одном большом пакете java все классы (в подпакете chars и просто) воспринимали друг друга как внутренние, а не внешние?
-                str = Colors.ANSI_BLUE + Main.lightSide.get(i).getName().substring(0, 2)+Colors.ANSI_RESET;
-            if (Main.darkSide.get(i).getPosition().isSame(new Coordinates(x, y)))
-                str = Colors.ANSI_GREEN + Main.darkSide.get(i).getName().substring(0, 2)+Colors.ANSI_RESET;
+            if (Main.lightSide.get(i).getPosition().isSame(new Coordinates(x, y))) {//сейчас они воспринимают друг друга как внешние. Как сделать так, чтобы в одном большом пакете java все классы (в подпакете chars и просто) воспринимали друг друга как внутренние, а не внешние?
+                str = Colors.ANSI_BLUE + Main.lightSide.get(i).getName().substring(0, 2) + Colors.ANSI_RESET;
+                charTable.append(Colors.ANSI_BLUE +
+                        Main.lightSide.get(i).getName() + " HP: " + Main.lightSide.get(i).getHealth() + ", Status: " + Main.lightSide.get(i).getStatus()
+                        + Colors.ANSI_RESET + "    ");
+            }
+            if (Main.darkSide.get(i).getPosition().isSame(new Coordinates(x, y))) {
+                str = Colors.ANSI_GREEN + Main.darkSide.get(i).getName().substring(0, 2) + Colors.ANSI_RESET;
+                charTable.append(Colors.ANSI_GREEN +
+                        Main.darkSide.get(i).getName() + " HP: " + Main.darkSide.get(i).getHealth() + ", Status: " + Main.darkSide.get(i).getStatus()
+                        + Colors.ANSI_RESET + "    ");
+            }
         }
         return str;
-    }
-
-
-    public static String status() {
-        return Colors.ANSI_BLUE + "Character status info" + "    " + Colors.ANSI_GREEN + "Character status info" + Colors.ANSI_RESET;
     }
 
     public static String getCharFull (int x, int teamCount) {
@@ -52,7 +56,8 @@ public class ConsoleView {
         for (int j = 1; j < teamCount; j++) {
             s.append(String.format("\u2502%s", ConsoleView.getChar(x, j, teamCount)));
         }
-        s.append(String.format("\u2502    %s", ConsoleView.status()));
+        s.append(String.format("\u2502    %s", charTable));
+        charTable.delete(0, charTable.length());
         return s.toString();
     }
 }
