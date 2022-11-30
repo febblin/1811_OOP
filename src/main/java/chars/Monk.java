@@ -12,8 +12,8 @@ public class Monk extends BaseHero {
         super(attack, protection, damage, health, speed, name, myParty, x, y);
     }
 
-    @Override
-    public void step(ArrayList<BaseHero> party) {
+    @Override //Или добавить сюда проверку на статус "не мертвый?" Да
+    public void step(ArrayList<BaseHero> enemy) {
         double mostDamaged = this.getMyParty().get(0).getMaxHealth() -
                 this.getMyParty().get(0).getHealth();
             int mostDamagedInd = 0;
@@ -26,6 +26,24 @@ public class Monk extends BaseHero {
                 }
             }
         this.getMyParty().get(mostDamagedInd).damage(this.getDamage()[0]);
-        this.getMyParty().get(mostDamagedInd).status = "stand"; //потом эту строчку возможно придется убрать, чтобы не зацикливать персонажей на одной и той же цели
+//        this.getMyParty().get(mostDamagedInd).status = "stand"; //потом эту строчку возможно придется убрать, чтобы не зацикливать персонажей на одной и той же цели
     }
 }
+
+/*
+*     public void step(ArrayList<BaseHero> party) {
+        double mostDamaged = this.getMyParty().get(0).getHealth();
+            int mostDamagedInd = 0;
+            for (int i = 1; i < this.getMyParty().size(); i++) {
+                if (this.getMyParty().get(i).getHealth() < mostDamaged) {
+                    mostDamaged = this.getMyParty().get(i).getHealth();
+                    mostDamagedInd = i;
+                }
+            }
+        this.getMyParty().get(mostDamagedInd).damage(this.getDamage()[0]);
+//        this.getMyParty().get(mostDamagedInd).status = "stand"; //потом эту строчку возможно придется убрать, чтобы не зацикливать персонажей на одной и той же цели
+    }*/
+
+/*
+*
+* */

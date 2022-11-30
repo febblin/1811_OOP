@@ -3,13 +3,12 @@ import chars.Coordinates;
 import java.util.Collections;
 
 public class ConsoleView {
-    public static int step = 0;
     public static void field(int teamCount) {
 
-        if (step++ == 0) {
+        if (Main.step++ == 0) {
             System.out.println(Colors.ANSI_RED+"First step!"+Colors.ANSI_RESET);
         } else {
-            System.out.println(Colors.ANSI_RED + "Step: "+step+Colors.ANSI_RESET);
+            System.out.println(Colors.ANSI_RED + "Step: "+Main.step+Colors.ANSI_RESET);
         }
 
         // Верх игровое поле

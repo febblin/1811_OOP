@@ -2,8 +2,9 @@ package chars;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public abstract class BaseHero implements BaseInterface {
+public abstract class BaseHero implements BaseInterface, Iterator {
     private int attack;
     private int defense;
     private int[] damage;
@@ -47,6 +48,32 @@ public abstract class BaseHero implements BaseInterface {
                 ", speed=" + speed;
     }
 
+    //Для тренировки
+    private int classFields;
+    @Override
+    public boolean hasNext() {
+        return classFields++ < 8;
+    }
+
+    @Override
+    public String next() {
+        switch (classFields) {
+            case 0: return "name=" + name;
+            case 1: return ", attack=" + attack;
+            case 2: return ", defense=" + defense;
+            case 3: return ", damage=" + Arrays.toString(damage);
+            case 4: return ", Max HP=" + maxHealth;
+            case 5: return ", HP=" + health;
+            case 6: return ", speed=" + speed;
+            case 7: return ", status=" + status;
+
+
+        }
+        return null;
+    }
+
+
+
     public String getName() {
         return name;
     }
@@ -79,7 +106,7 @@ public abstract class BaseHero implements BaseInterface {
     }
 
     @Override
-    public void step(ArrayList<BaseHero> party) {}
+    public void step(ArrayList<BaseHero> enemy) {}
 
     public Coordinates getPosition() {
         return position;
@@ -106,6 +133,8 @@ public abstract class BaseHero implements BaseInterface {
         if (flag < 0) value = this.getDamage()[0];
         return value;
     }
+
+
 
 //    @Override
 //    public void step(ArrayList<chars.BaseHero> party) {

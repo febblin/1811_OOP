@@ -1,8 +1,7 @@
 import chars.BaseHero;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Hashtable;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class Turn {
     //По индексам
@@ -14,12 +13,62 @@ public class Turn {
         {"Peasant"}
     };
 
-    private ArrayList<BaseHero> light = Main.lightSide;
-    private ArrayList<BaseHero> dark = Main.darkSide;
+    private static List <String> phase1 = List.of("Robber", "Spearman");
+    private static List <String> phase2 = List.of("Sniper", "Xbowman");
+    private static List <String> phase3 = List.of("Monk", "Warlock");
+    private static List <String> phase4 = List.of("Peasant");
+
+
+    private static ArrayList<BaseHero> light = Main.lightSide;
+    private static ArrayList<BaseHero> dark = Main.darkSide;
+
+    private static Predicate<BaseHero> isDead = x -> x.getStatus().equals("dead");
 
     public static void order() {
-        Main.lightSide.forEach(n -> n.step(Main.darkSide));
-        Main.darkSide.forEach(n -> n.step(Main.lightSide));
+
+        //Первая фаза
+        for (BaseHero h: Main.lightSide) {
+            if (!(h.getStatus().equals("dead")) && phase1.contains(h.getName()))
+                h.step(Main.darkSide);
         }
+        for (BaseHero h: Main.darkSide) {
+            if (!(h.getStatus().equals("dead")) && phase1.contains(h.getName()))
+                h.step(Main.lightSide);
+        }
+        //Вторая фаза
+        for (BaseHero h: Main.lightSide) {
+            if (!(h.getStatus().equals("dead")) && phase2.contains(h.getName()))
+                h.step(Main.darkSide);
+        }
+        for (BaseHero h: Main.darkSide) {
+            if (!(h.getStatus().equals("dead")) && phase2.contains(h.getName()))
+                h.step(Main.lightSide);
+        }
+        //Третья фаза
+        for (BaseHero h: Main.lightSide) {
+            if (!(h.getStatus().equals("dead")) && phase3.contains(h.getName()))
+                h.step(Main.darkSide);
+        }
+        for (BaseHero h: Main.darkSide) {
+            if (!(h.getStatus().equals("dead")) && phase3.contains(h.getName()))
+                h.step(Main.lightSide);
+        }
+        //Четвертая фаза
+        for (BaseHero h: Main.lightSide) {
+            if (!(h.getStatus().equals("dead")) && phase4.contains(h.getName()))
+                h.step(Main.darkSide);
+        }
+        for (BaseHero h: Main.darkSide) {
+            if (!(h.getStatus().equals("dead")) && phase4.contains(h.getName()))
+                h.step(Main.lightSide);
+        }
+
+
+
+
+//        light.forEach(n -> n.step(Main.darkSide));
+//        dark.forEach(n -> n.step(Main.lightSide));
+
+    }
 }
 

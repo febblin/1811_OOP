@@ -18,15 +18,15 @@ public class Coordinates {
         return Math.sqrt(((pos.x - this.x)^2 + (pos.y - this.y^2)));
     }
 
-    public BaseHero findNearest(ArrayList<BaseHero> party) {
-        double dist = this.distance(party.get(0).getPosition());
+    public BaseHero findNearest(ArrayList<BaseHero> enemy) {
+        double dist = this.distance(enemy.get(0).getPosition());
         int nearestInd = 0;
-        for (int i = 1; i < party.size(); i++) {
-            if (this.distance(party.get(i).getPosition()) < dist && !(party.get(i).status.equals("dead"))) {
-                dist = this.distance(party.get(i).getPosition());
+        for (int i = 1; i < enemy.size(); i++) {
+            if (this.distance(enemy.get(i).getPosition()) < dist && !(enemy.get(i).status.equals("dead"))) {
+                dist = this.distance(enemy.get(i).getPosition());
                 nearestInd = i;
             }
         }
-        return party.get(nearestInd);
+        return enemy.get(nearestInd);
     }
 }
