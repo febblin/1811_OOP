@@ -13,15 +13,6 @@ public class Xbowman extends BaseHero {
         this.shoot = shoot;
     }
 
-    public int getShoot() {
-        return shoot;
-    }
-
-    public void setShoot(int shoot) {
-        this.shoot = shoot;
-    }
-
-
     @Override
     public String getInfo() {
         return super.getInfo() +
@@ -30,6 +21,7 @@ public class Xbowman extends BaseHero {
 
     @Override
     public void step(ArrayList<BaseHero> enemy) {
+        if (this.status.equals("dead")) return;
         for (BaseHero h: this.getMyParty()) {
             if (h.getName().equals("Peasant") && h.status.equals("stand")) {
                 this.shoot++;
@@ -37,7 +29,7 @@ public class Xbowman extends BaseHero {
                 break;
             }
         }
-        if (this.shoot<1) return;
+        if (this.shoot<1) {this.status = "used"; return;}
         BaseHero target = this.getPosition().findNearest(enemy);
         double dist = this.getPosition().distance(target.getPosition());
         target.damage(dist < this.getSpeed() ?

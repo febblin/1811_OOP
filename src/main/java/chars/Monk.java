@@ -14,6 +14,7 @@ public class Monk extends BaseHero {
 
     @Override //Или добавить сюда проверку на статус "не мертвый?" Да
     public void step(ArrayList<BaseHero> enemy) {
+        if (this.status.equals("dead")) return;
         double mostDamaged = this.getMyParty().get(0).getMaxHealth() -
                 this.getMyParty().get(0).getHealth();
             int mostDamagedInd = 0;
@@ -26,7 +27,7 @@ public class Monk extends BaseHero {
                 }
             }
         this.getMyParty().get(mostDamagedInd).damage(this.getDamage()[0]);
-//        this.getMyParty().get(mostDamagedInd).status = "stand"; //потом эту строчку возможно придется убрать, чтобы не зацикливать персонажей на одной и той же цели
+        this.getMyParty().get(mostDamagedInd).status = "stand"; //потом эту строчку возможно придется убрать, чтобы не зацикливать персонажей на одной и той же цели
     }
 }
 

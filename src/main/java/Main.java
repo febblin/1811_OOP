@@ -21,7 +21,7 @@ public class Main {
 
        do {
                ConsoleView.field(Main.TEAM_SIZE);
-               Turn.orderBySpeed();
+               Turn.orderByClass();
                step++;
        } while ((char) System.in.read() != 'Q');
 

@@ -2,23 +2,10 @@ import chars.BaseHero;
 import chars.Team;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Turn {
-    //По индексам
-    // 0 бойцы 1 лучники 2 маги 3 крестьяне - последовательно вызывать метод step у каждого персонажа
-    private static String [] [] PHASE = new String [][] { //фазы раунда
-        {"Robber", "Spearman"},
-        {"Sniper", "Xbowman"},
-        {"Monk", "Warlock"},
-        {"Peasant"}
-    };
 
-    private static List <String> phase1 = List.of("Robber", "Spearman");
-    private static List <String> phase2 = List.of("Sniper", "Xbowman");
-    private static List <String> phase3 = List.of("Monk", "Warlock");
-    private static List <String> phase4 = List.of("Peasant");
-
+    private static HashMap<Integer, List <String>> phases = new HashMap<>();
 
     public static void orderBySpeed() {
 
@@ -31,44 +18,37 @@ public class Turn {
             Main.lightSide.forEach(n -> n.step(Main.darkSide));
             Main.darkSide.forEach(n -> n.step(Main.lightSide));
         }
-        /*
-        for (BaseHero h: Main.lightSide) {
-            if (!(h.getStatus().equals("dead")) && phase1.contains(h.getName()))
-                h.step(Main.darkSide);
-        }
-        for (BaseHero h: Main.darkSide) {
-            if (!(h.getStatus().equals("dead")) && phase1.contains(h.getName()))
-                h.step(Main.lightSide);
-        }
-        //Вторая фаза
-        for (BaseHero h: Main.lightSide) {
-            if (!(h.getStatus().equals("dead")) && phase2.contains(h.getName()))
-                h.step(Main.darkSide);
-        }
-        for (BaseHero h: Main.darkSide) {
-            if (!(h.getStatus().equals("dead")) && phase2.contains(h.getName()))
-                h.step(Main.lightSide);
-        }
-        //Третья фаза
-        for (BaseHero h: Main.lightSide) {
-            if (!(h.getStatus().equals("dead")) && phase3.contains(h.getName()))
-                h.step(Main.darkSide);
-        }
-        for (BaseHero h: Main.darkSide) {
-            if (!(h.getStatus().equals("dead")) && phase3.contains(h.getName()))
-                h.step(Main.lightSide);
-        }
-        //Четвертая фаза
-        for (BaseHero h: Main.lightSide) {
-            if (!(h.getStatus().equals("dead")) && phase4.contains(h.getName()))
-                h.step(Main.darkSide);
-        }
-        for (BaseHero h: Main.darkSide) {
-            if (!(h.getStatus().equals("dead")) && phase4.contains(h.getName()))
-                h.step(Main.lightSide);
-        }
-        */
-
     }
+
+    public static void orderByClass() {
+
+        if (Main.step == 0) {
+
+            phases.put(0, List.of("Robber", "Spearman"));
+            phases.put(1, List.of("Sniper", "Xbowman"));
+            phases.put(2, List.of("Monk", "Warlock"));
+            phases.put(3, List.of("Peasant"));
+
+            for (int i = 0; i < phases.size(); i++) {
+                steps(Main.lightSide, Main.darkSide, phases.get(i));
+            }
+        } else {
+            for (int i = 0; i < phases.size(); i++) {
+                steps(Main.lightSide, Main.darkSide, phases.get(i));
+            }
+        }
+    }
+
+    private static void steps(ArrayList<BaseHero> side1, ArrayList<BaseHero> side2, List<String> phase) {
+        for (BaseHero h: side1) {
+            if (!(h.getStatus().equals("dead")) && phase.contains(h.getName()))
+                h.step(side2);
+        }
+        for (BaseHero h: side2) {
+            if (!(h.getStatus().equals("dead")) && phase.contains(h.getName()))
+                h.step(side1);
+        }
+    }
+
 }
 

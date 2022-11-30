@@ -10,6 +10,7 @@ public class Peasant extends BaseHero {
 
     @Override
     public void step(ArrayList<BaseHero> party) {
+        if (this.status.equals("dead")) return;
         if (this.status.equals("used")) this.status = "stand";
     }
 }
