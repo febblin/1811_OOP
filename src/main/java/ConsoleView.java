@@ -34,7 +34,7 @@ public class ConsoleView {
     private static String getChar(int x, int y, int teamCount) {
         String str = "  ";
         for (int i = 0; i < teamCount; i++) {
-            if (Main.lightSide.get(i).getPosition().isSame(new Coordinates(x, y))) {//сейчас они воспринимают друг друга как внешние. Как сделать так, чтобы в одном большом пакете java все классы (в подпакете chars и просто) воспринимали друг друга как внутренние, а не внешние?
+            if (Main.lightSide.get(i).getPosition().isSame(new Coordinates(x, y))) {//сейчас они воспринимают друг друга как внешние. Как сделать так, чтобы в одном большом пакете java все классы (в подпакете chars и просто) воспринимали друг друга как внутренние и видели друг друга по протектед-модификатору?
                 str = Colors.ANSI_BLUE + Main.lightSide.get(i).getName().substring(0, 2) + Colors.ANSI_RESET;
                 charTable.append(Colors.ANSI_BLUE +
                         Main.lightSide.get(i).getName() + " HP: " + Main.lightSide.get(i).getHealth() + ", Status: " + Main.lightSide.get(i).getStatus()
@@ -49,7 +49,7 @@ public class ConsoleView {
         }
         return str;
     }
-
+    //TODO: теперь если верить Stack Overflow мне нужно рефакторить код выше таким образом, чтобы все происходило напрямую через append to StringBuilder без +, а то видите ли инстансы StringBuilder накладываются (внутренний от + и мой внешний) и получается потеря в производительности
     public static String getCharFull (int x, int teamCount) {
         StringBuilder s = new StringBuilder();
         s.append(String.format("\u2502%s", ConsoleView.getChar(x, 0, teamCount)));

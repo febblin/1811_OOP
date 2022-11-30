@@ -14,14 +14,18 @@ public class Monk extends BaseHero {
 
     @Override
     public void step(ArrayList<BaseHero> party) {
-        double mostDamaged = this.getMyParty().get(0).getHealth();
+        double mostDamaged = this.getMyParty().get(0).getMaxHealth() -
+                this.getMyParty().get(0).getHealth();
             int mostDamagedInd = 0;
             for (int i = 1; i < this.getMyParty().size(); i++) {
-                if (this.getMyParty().get(i).getHealth() < mostDamaged) {
-                    mostDamaged = this.getMyParty().get(i).getHealth();
+                if ((this.getMyParty().get(i).getMaxHealth() -
+                        this.getMyParty().get(i).getHealth()) > mostDamaged) {
+                    mostDamaged = this.getMyParty().get(i).getMaxHealth() -
+                            this.getMyParty().get(i).getHealth();
                     mostDamagedInd = i;
                 }
             }
         this.getMyParty().get(mostDamagedInd).damage(this.getDamage()[0]);
+        this.getMyParty().get(mostDamagedInd).status = "stand"; //потом эту строчку возможно придется убрать, чтобы не зацикливать персонажей на одной и той же цели
     }
 }

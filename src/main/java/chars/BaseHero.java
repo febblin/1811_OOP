@@ -37,23 +37,6 @@ public abstract class BaseHero implements BaseInterface {
         return status;
     }
 
-    public Coordinates getPosition() {
-        return position;
-    }
-
-    public int[] getDamage() {
-        return damage;
-    }
-
-    protected void damage(int damage) {
-        this.health = health - damage;
-        if (this.health <= 0) {
-            this.status = "dead";
-            this.health = 0;
-        }
-        if (this.health > this.maxHealth) this.health = this.maxHealth;
-    }
-
     @Override
     public String getInfo() {
         return "name=" + name +
@@ -75,6 +58,10 @@ public abstract class BaseHero implements BaseInterface {
         return health;
     }
 
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+
     public int getAttack() {
         return attack;
     }
@@ -93,6 +80,23 @@ public abstract class BaseHero implements BaseInterface {
 
     @Override
     public void step(ArrayList<BaseHero> party) {}
+
+    public Coordinates getPosition() {
+        return position;
+    }
+
+    public int[] getDamage() {
+        return damage;
+    }
+
+    protected void damage(int damage) {
+        this.health = health - damage;
+        if (this.health <= 0) {
+            this.status = "dead";
+            this.health = 0;
+        }
+        if (this.health > this.maxHealth) this.health = this.maxHealth;
+    }
 
     protected int damageValue (BaseHero h) {
         int flag = this.getAttack() - h.getDefense();
